@@ -2,7 +2,6 @@
 
 This is an [R Markdown](http://rmarkdown.rstudio.com/) notebook which illustrates how to read, subset, and process a Sentinel-2 multispectral image in R.
 
-![Sentinel-2 Satellite](Desktop/R/images/Imagem-2-Indra-Sentinel-2B.jpg){alt="Sentinel-2 Satellite"}
 
 As the world is facing a wide variety of challenges, reliable information is required to assist and help in the decision-making process. Different methods can be used to gather it but satellite Earth Observation offers a suitable approach based on the coverage and type of data that are provided.
 
@@ -45,39 +44,12 @@ The exercise is divided in the following sections:
 
     #setwd("/Users/mostafa/Desktop/Github/RS/ProS2L2A")
 
-    ```
-
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2008.17.55.png)
-
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Packages         | Name                                                              | Description                                                                                                                                                               |
-+==================+===================================================================+===========================================================================================================================================================================+
-| ### tidyr        | Tidy Messy Data                                                   | Tools to help to create tidy data, where each column is a variable, each row is an observation, and each cell contains a single value.                                    |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### rgdal        | Bindings for the 'Geospatial' Data Abstraction Library            | Provides bindings to the 'Geospatial' Data Abstraction Library                                                                                                            |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### ggplot2      | Create Elegant Data Visualisations Using the Grammar of Graphics  | A system for 'declaratively' creating graphics, based on "The Grammar of Graphics".                                                                                       |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### raster       | Geographic Data Analysis and Modeling                             | Reading, writing, manipulating, analyzing and modeling of spatial data.                                                                                                   |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### leaflet      | Create Interactive Web Maps with the JavaScript 'Leaflet' Library | Create and customize interactive maps using the 'Leaflet' JavaScript library and the 'htmlwidgets' package.                                                               |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### rasterVis    | Visualization Methods for Raster Data                             | Methods for enhanced visualization and interaction with raster data.                                                                                                      |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### gridExtra    | Miscellaneous Functions for "Grid" Graphics                       | Provides a number of user-level functions to work with "grid" graphics, notably to arrange multiple grid-based plots on a page, and draw tables.                          |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### RColorBrewer | ColorBrewer Palettes                                              | Provides color schemes for maps (and other graphics) designed by Cynthia Brewer as described at [http://colorbrewer2.org](http://colorbrewer2.org/).                      |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### plotly       | Create Interactive Web Graphics via 'plotly.js'                   | Create interactive web graphics from 'ggplot2' graphs and/or a custom interface to the (MIT-licensed) JavaScript library 'plotly.js' inspired by the grammar of graphics. |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### sen2r        | Find, Download and Process Sentinel-2 Data                        | Functions to download Sentinel-2 optical images and perform preliminary processing operations.                                                                            |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ### GeoJSON      | Tools for Validating 'GeoJSON'                                    | Tools for linting 'GeoJSON'.                                                                                                                                              |
-+------------------+-------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 ## Sentinel-2
 
-## The Copernicus Sentinel-2 mission comprises a constellation of two polar-orbiting satellites placed in the same sun-synchronous orbit, phased at 180° to each other. It aims at monitoring variability in land surface conditions, and its wide swath width (290 km) and high revisit time (10 days at the equator with one satellite, and 5 days with 2 satellites under cloud-free conditions which results in 2-3 days at mid-latitudes) will support monitoring of Earth's surface changes.![](Desktop/R/images/8723482_orig.jpg)![](Desktop/R/images/Sentinel-4.jpg)Provide Time Series Data
+The Copernicus Sentinel-2 mission comprises a constellation of two polar-orbiting satellites placed in the same sun-synchronous orbit, phased at 180° to each other. It aims at monitoring variability in land surface conditions, and its wide swath width (290 km) and high revisit time (10 days at the equator with one satellite, and 5 days with 2 satellites under cloud-free conditions which results in 2-3 days at mid-latitudes) will support monitoring of Earth's surface changes.)
+
+## Provide Time Series Data
 
 ```{r}
 library(sen2r)
@@ -86,27 +58,21 @@ sen2r()
 
 first of all in Product selection, select RAW files and then connect to your SciHub account. Also, you can filter your data based on cloud cover (Max.SAFE cloud cover). (proper value is 25%)
 
-![](Desktop/R/images/Screen%20Shot%202022-08-14%20at%2021.09.47-04.png)
-
 Then choose Spatial-Temporal selection
 
-![](Desktop/R/images/Screen%20Shot%202022-08-14%20at%2021.10.03.png)
 
 ## Processing (Atmospheric correction)
 
 Sen2Cor is a processor for Sentinel-2 Level 2A product generation and formatting; it performs the atmospheric-, terrain and cirrus correction of Top-Of- Atmosphere Level 1C input data. Sen2Cor creates Bottom-Of-Atmosphere, optionally terrain- and cirrus corrected reflectance images; additional, Aerosol Optical Thickness-, Water Vapor-, Scene Classification Maps and Quality Indicators for cloud and snow probabilities. Its output product format is equivalent to the Level 1C User Product: JPEG 2000 images, three different resolutions, 60, 20 and 10 m.
 
-![](Desktop/R/images/Sen2Cor-para-correccio%CC%81n-atmosfe%CC%81rica-de-Sentinel.jpg)
+
 
 -   Convert Sentinel-2 L1C to L2A (Using sen2cor plugin)
-
-    ![](Desktop/R/images/Screen%20Shot%202022-08-14%20at%2021.31.33.png)
 
     <https://youtu.be/zhHdASVa1LM>
 
 ## Select Study Area and points
 
-![](Desktop/R/images/Screen%20Shot%202022-08-18%20at%2017.07.22.png)
 
 ```{r}
 Study_Area<-readOGR("/Users/mostafa/Desktop/Github/RS/SA1/StudyArea/SA/saa.shp")
@@ -132,11 +98,8 @@ m
 
 1.  select folder with all Sentinel-2 data (all days). [S2 \<- "/Users/mostafa/Desktop/Github/RS/S2L2A"]
 
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2009.47.44.png)
+  After correction of L1C data using sen2cor plugin if open S2B_MSIL2A_20220813T072619_N9999_R049_T39RTQ_20220815T104133.SAFE/GRANULE/L2A_T39RTQ_A028389_20220813T073150/IMG_DATA/R10m you can see [T39RTQ_20220813T072619\_\*\*B08_10m.jp2], [**T39RTQ_20220813T072619\_**B03_10m.jp2], ...\*\* which the **Bold** parts are not repetitive. We separate this part using pattern function [**pattern = "B0[2348]\_10m.jp2\$**] and all bands (B3, B3, B4, B8) will selected for analyzing.
 
-1.  After correction of L1C data using sen2cor plugin if open S2B_MSIL2A_20220813T072619_N9999_R049_T39RTQ_20220815T104133.SAFE/GRANULE/L2A_T39RTQ_A028389_20220813T073150/IMG_DATA/R10m you can see [T39RTQ_20220813T072619\_\*\*B08_10m.jp2], [**T39RTQ_20220813T072619\_**B03_10m.jp2], ...\*\* which the **Bold** parts are not repetitive. We separate this part using pattern function [**pattern = "B0[2348]\_10m.jp2\$**] and all bands (B3, B3, B4, B8) will selected for analyzing.
-
-    ![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2009.57.33.png)
 
 ```{r}
 #Load data
@@ -164,7 +127,6 @@ plotRGB(S2_stack, r=4, g=3, b=2, scale=maxValue(S2[[2]]), stretch='hist') #stret
 plot(Study_Area, add=TRUE, border='yellow', lwd=5)
 ```
 
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2010.38.55.png)
 
 Crop data according the study area .shp file.
 
@@ -179,13 +141,11 @@ plotRGB(S2_stack_crop, r=3, g=2, b=1, scale=maxValue(S2[[2]]), stretch='hist')
 plotRGB(S2_stack_crop, r=4, g=3, b=2, scale=maxValue(S2[[2]]), stretch='hist')
 ```
 
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2010.39.56-01.png)
 
 ## Derive NDVI (**Normalized Difference Vegetation Index)**
 
 The **normalized difference vegetation index** (**NDVI**) is a simple graphical indicator that can be used to analyze [remote sensing](https://en.wikipedia.org/wiki/Remote_sensing "Remote sensing")measurements, often from a [space platform](https://en.wikipedia.org/wiki/Artificial_satellite "Artificial satellite"), assessing whether or not the target being observed contains live green [vegetation](https://en.wikipedia.org/wiki/Vegetation "Vegetation").
 
-![](Desktop/R/images/Formula-used-to-calculate-the-normalized-difference-vegetation-index-NDVI.ppm.png){width="234"}
 
 ```{r}
 #Derive NDVI
@@ -202,7 +162,6 @@ NDVI
 
 The **Normalized Difference Water Index** (NDWI) is known to be strongly related to the plant water content. It is therefore a very good proxy for plant water stress. The Normalized Difference Water Index (NDWI) (Gao, 1996) is a satellite-derived index from the Near-Infrared (NIR) and Short Wave Infrared (SWIR) channels.
 
-![](Desktop/R/images/3abc3b6d-d3c4-4793-a48a-986c048b707d.jpg){width="181"}
 
 ```{r}
 #Derive NDWI
@@ -215,7 +174,6 @@ for (i in 1:(length(S2)/4)) {
 NDWI
 ```
 
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2010.47.58.png)
 
 ```{r}
 #Set Layout
@@ -233,7 +191,6 @@ mapTheme$fontsize$text = 9
 levelplot(stack(NDVI), scales=list(draw=FALSE), colorkey=FALSE, par.settings=mapTheme)
 ```
 
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2010.44.22.png)
 
 ## Extract pixel value at point coord
 
@@ -252,7 +209,7 @@ NDVI_points_df <- NDVI_points_df[, !duplicated(colnames(NDVI_points_df))]
 NDVI_points_df
 ```
 
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2010.44.59.png){width="500"}
+
 
 ```{r}
 #Arrange df
@@ -260,7 +217,7 @@ NDVI_points_df <-gather(NDVI_points_df, key = Date, value = value, -ID)
 NDVI_points_df
 ```
 
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2010.45.20.png){width="232"}
+
 
 ## Plot NDVI Temporal series
 
@@ -269,5 +226,3 @@ NDVI_points_df
 ndvi_plot <- ggplot(data=NDVI_points_df, aes(x=Date, y=value, group=ID, color=ID)) + geom_line() + geom_point()
 ndvi_plot
 ```
-
-![](Desktop/R/images/Screen%20Shot%202022-08-19%20at%2010.45.55.png)
