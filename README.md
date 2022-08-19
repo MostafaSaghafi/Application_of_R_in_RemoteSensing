@@ -29,7 +29,7 @@ The exercise is divided in the following sections:
 
     • Plot temporal series
 
-    ## [1. Load R package]{.underline}
+    ## 1. Load R package
 
     In a new code cell copy-paste the following code to start analyzing the Sentinel-2 products. We start first by loading the R packages needed for this processing. If not installed, they will be installed. After that, we set the working directory the our Aux Data folder.
 
