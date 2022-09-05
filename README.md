@@ -103,8 +103,8 @@ m
 
 ```{r}
 #Load data
-S2 <- "/Users/mostafa/Desktop/Github/RS/S2L2A"
-S2 <- list.files(S2, recursive = TRUE, full.names = TRUE, pattern = "B0[2348]_10m.jp2$")
+S2 <- "/Users/mostafa/Desktop/Dr.Attar/ARRS/S2L2A"
+S2 <- list.files(S2, recursive = TRUE, full.names = TRUE, pattern = "B(((0[2345678])|(1[12])|(8A))_20m).jp2$")
 S2 <- lapply(1:length(S2), function (x) {raster(S2[x])})
 S2[1]
 ```
