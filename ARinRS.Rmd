@@ -2,9 +2,7 @@
 title: "sentinel2withR"
 author: "Mostafa Saghafi"
 date: "2022-08-13"
-output:
-  pdf_document: default
-  html_document: default
+output: pdf_document
 ---
 
 # Application of R in Remote Sensing
@@ -54,7 +52,7 @@ if(length(new_pck)){install.packages(new_pck)}
 
 sapply(pck, require, character.only=TRUE)
 
-setwd("/Users/mostafa/Desktop/Github/RS/ProS2L2A")
+#setwd("/Users/mostafa/Desktop/Github/RS/ProS2L2A")
 
 ```
 
@@ -99,8 +97,8 @@ The Copernicus Sentinel-2 mission comprises a constellation of two polar-orbitin
 ## Provide Time Series Data
 
 ```{r}
-library(sen2r)
-sen2r()
+#library(sen2r)
+#sen2r()
 ```
 
 first of all in Product selection, select RAW files and then connect to your SciHub account. Also, you can filter your data based on cloud cover (Max.SAFE cloud cover). (proper value is 25%)
@@ -124,8 +122,13 @@ Sen2Cor is a processor for Sentinel-2 Level 2A product generation and formatting
 ## Select Study Area and points
 
 ```{r}
-Study_Area<-readOGR("/Users/mostafa/Desktop/Github/RS/SA1/StudyArea/SA/saa.shp")
-point_SA<-readOGR("/Users/mostafa/Desktop/Github/RS/SA1/StudyArea/point/points.shp")
+library(tidyverse)
+library(tinytex)
+```
+
+```{r}
+Study_Area<-readOGR("/Users/mostafa/Desktop/Dr.Attar/ARRS/SA1/StudyArea/SA/saa.shp")
+point_SA<-readOGR("/Users/mostafa/Desktop/Dr.Attar/ARRS/SA1/StudyArea/point/points.shp")
 ```
 
 ### Show the Study Area
@@ -155,8 +158,8 @@ m
 
 ```{r}
 #Load data
-S2 <- "/Users/mostafa/Desktop/Github/RS/S2L2A"
-S2 <- list.files(S2, recursive = TRUE, full.names = TRUE, pattern = "B0[2348]_10m.jp2$")
+S2 <- "/Users/mostafa/Desktop/Dr.Attar/ARRS/S2L2A"
+S2 <- list.files(S2, recursive = TRUE, full.names = TRUE, pattern = "B(((0[2345678])|(1[12])|(8A))_20m).jp2$")
 S2 <- lapply(1:length(S2), function (x) {raster(S2[x])})
 S2[1]
 ```
@@ -173,9 +176,9 @@ layout(m)
 S2_stack <- stack(S2)
 
 #plot True/False Color
-plotRGB(S2_stack, r=3, g=2, b=1, scale=maxValue(S2[[2]]), stretch='hist') #stretch='lin'
+plotRGB(S2_stack, r=3, g=2, b=1, scale=maxValue(S2[[2]]), stretch='lin') #stretch='lin'
 plot(Study_Area, add=TRUE, border='yellow', lwd=5)
-plotRGB(S2_stack, r=4, g=3, b=2, scale=maxValue(S2[[2]]), stretch='hist') #stretch='lin'
+plotRGB(S2_stack, r=4, g=3, b=2, scale=maxValue(S2[[2]]), stretch='lin') #stretch='lin'
 plot(Study_Area, add=TRUE, border='yellow', lwd=5)
 ```
 
@@ -190,8 +193,8 @@ m <- rbind(c(1, 2))
 layout(m)
 #crop and plot
 S2_stack_crop <- crop(S2_stack, Study_Area)
-plotRGB(S2_stack_crop, r=3, g=2, b=1, scale=maxValue(S2[[2]]), stretch='hist')
-plotRGB(S2_stack_crop, r=4, g=3, b=2, scale=maxValue(S2[[2]]), stretch='hist')
+plotRGB(S2_stack_crop, r=3, g=2, b=1, scale=maxValue(S2[[2]]), stretch='lin')
+plotRGB(S2_stack_crop, r=4, g=3, b=2, scale=maxValue(S2[[2]]), stretch='lin')
 ```
 
 ![](images/Screen%20Shot%202022-08-19%20at%2010.39.56.png)
@@ -267,6 +270,7 @@ NDVI_points_df <- do.call("cbind", NDVI_points)
 #Clean df - remove duplicated columns
 NDVI_points_df <- NDVI_points_df[, !duplicated(colnames(NDVI_points_df))]
 NDVI_points_df
+#knitr::kable(NDVI_points_df[])
 ```
 
 ![](images/Screen%20Shot%202022-08-19%20at%2010.44.59.png)
